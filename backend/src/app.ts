@@ -39,6 +39,16 @@ app.get('/health', (_req, res) => {
   res.status(200).json({ success: true, message: 'API is running' });
 });
 
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'TaskFlow API',
+    docs: '/api/docs',
+    health: '/health',
+    api: '/api/v1',
+  });
+});
+
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.get('/api/docs.json', (_req, res) => {
   res.json(swaggerSpec);

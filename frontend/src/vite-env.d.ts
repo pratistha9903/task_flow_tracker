@@ -7,3 +7,11 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+interface AppConfig {
+  API_URL?: string;
+}
+
+interface Window {
+  APP_CONFIG?: AppConfig;
+}
