@@ -1,9 +1,16 @@
 # TaskFlow — Task Management System
 
 A full-stack task management platform built for the **Backend Developer Intern** assignment. It includes a scalable REST API with JWT authentication, role-based access control (User / Admin), PostgreSQL on Supabase, and a React frontend with admin analytics.
+---
 
 **Deployed on Redder** 
 https://task-flow-tracker-main.onrender.com
+
+---
+**Demo Video**
+
+https://github.com/user-attachments/assets/d829b982-dc81-4568-a125-7be87ec3ec03
+
 ---
 
 ## Features
