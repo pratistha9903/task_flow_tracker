@@ -2,8 +2,8 @@
 
 A full-stack task management platform built for the **Backend Developer Intern** assignment. It includes a scalable REST API with JWT authentication, role-based access control (User / Admin), PostgreSQL on Supabase, and a React frontend with admin analytics.
 
-**Live repo:** [github.com/pratistha9903/task-flow](https://github.com/pratistha9903/task-flow)
-
+**Deployed on Redder** 
+https://task-flow-tracker-main.onrender.com
 ---
 
 ## Features
