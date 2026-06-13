@@ -76,10 +76,18 @@ class ApiClient {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${API_BASE}${endpoint}`, {
-      ...options,
-      headers,
-    });
+    let response: Response;
+    try {
+      response = await fetch(`${API_BASE}${endpoint}`, {
+        ...options,
+        headers,
+      });
+    } catch {
+      throw {
+        status: 0,
+        message: `Cannot reach API at ${API_BASE}. Set VITE_API_URL on the frontend and CORS_ORIGIN on the backend.`,
+      };
+    }
 
     const data = await response.json();
 

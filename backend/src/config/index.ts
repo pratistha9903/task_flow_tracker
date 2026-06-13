@@ -2,6 +2,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const parseCorsOrigins = (): string[] => {
+  const raw = process.env.CORS_ORIGIN || 'http://localhost:5173';
+  return raw.split(',').map((o) => o.trim()).filter(Boolean);
+};
+
 export const config = {
   port: parseInt(process.env.PORT || '3001', 10),
   nodeEnv: process.env.NODE_ENV || 'development',
@@ -9,5 +14,5 @@ export const config = {
     secret: process.env.JWT_SECRET || 'dev-secret-change-me',
     expiresIn: process.env.JWT_EXPIRES_IN || '24h',
   },
-  corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+  corsOrigins: parseCorsOrigins(),
 };

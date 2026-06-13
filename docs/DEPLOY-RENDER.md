@@ -65,7 +65,72 @@ npx prisma db push
 
 ---
 
-## Checklist before redeploy
+## Deploy frontend on Render (Static Site)
+
+The frontend must know your **live backend URL** at build time.
+
+### Render → New Static Site → connect repo
+
+| Setting | Value |
+|---------|--------|
+| **Root Directory** | `frontend` |
+| **Build Command** | `npm install && npm run build` |
+| **Publish Directory** | `dist` |
+
+### Environment variable (required before build)
+
+| Variable | Example |
+|----------|---------|
+| `VITE_API_URL` | `https://your-backend.onrender.com/api/v1` |
+
+No trailing slash. Must include `/api/v1`.
+
+After adding/changing `VITE_API_URL`, **redeploy** the frontend (rebuild required).
+
+---
+
+## Fix "Failed to fetch" on login/register
+
+This almost always means the browser cannot reach your API. Check these **three** things:
+
+### 1. Frontend points to Render backend (not localhost)
+
+Open browser DevTools → Network tab → try login → see which URL is called.
+
+- Bad: `http://localhost:3001/api/v1/auth/login`
+- Good: `https://your-backend.onrender.com/api/v1/auth/login`
+
+**Fix:** Set `VITE_API_URL` on the **frontend** Render service and redeploy.
+
+### 2. Backend CORS allows your frontend URL
+
+On **backend** Render → Environment:
+
+```
+CORS_ORIGIN=https://your-frontend.onrender.com
+```
+
+For local + production together:
+
+```
+CORS_ORIGIN=http://localhost:5173,https://your-frontend.onrender.com
+```
+
+Redeploy backend after changing.
+
+### 3. Backend is actually running
+
+Open in browser:
+
+```
+https://your-backend.onrender.com/health
+```
+
+Should return: `{"success":true,"message":"API is running"}`
+
+If this fails, fix backend deploy first (see database section above).
+
+---
 
 - [ ] `DATABASE_URL` uses **pooler** host + port **6543** + `?pgbouncer=true`
 - [ ] `DIRECT_URL` uses **session pooler** (`pooler.supabase.com:5432`), **not** `db.xxx.supabase.co`
